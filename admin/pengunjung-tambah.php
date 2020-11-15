@@ -1,4 +1,29 @@
 <?php include "header.php"; ?>
+<?php 
+    //untuk memproses form 
+    if($_SERVER['REQUEST_METHOD']=='POST'){
+        $nama           = $_POST['nama'];
+        $alamat         = $_POST['alamat'];
+        $status         = $_POST['status'];
+        $jenis_kelamin  = $_POST['jenis_kelamin'];
+        $keperluan      = $_POST['keperluan'];
+        
+        if($nama=='' || $alamat=='' || $status=='' || $jenis_kelamin=='' || $keperluan==''){
+            echo "<div class='alert alert-warning  show alert-dismissible mt-2'>
+                    Data Belum lengkap harus di selesaikan !
+                </div>";	
+        }else{
+            //simpan data
+            $simpan = mysqli_query($koneksi,
+            "INSERT INTO `pengunjung` (`id_pengunjung`, `nama`, `alamat`, `status`, `jenis_kelamin`, `keperluan`, `tanggal_kunjungan`) VALUES (NULL, '$nama', '$alamat', '$status', '$jenis_kelamin', '$keperluan', NOW());");
+            
+            if($simpan){
+                echo '<script> window.location.replace("pengunjung.php");</script>';
+            }
+        }
+    }
+
+?>
   <body>
     <!-- navbar-->
     <header class="header">
@@ -14,8 +39,8 @@
         <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
         <ul class="sidebar-menu list-unstyled">
             <li class="sidebar-list-item"><a href="index.php" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
-            <li class="sidebar-list-item"><a href="members.php" class="sidebar-link text-muted active"><i class="fas fa-user-friends mr-3 text-gray"></i><span>Anggota</span></a></li>
-            <li class="sidebar-list-item"><a href="pengunjung.php" class="sidebar-link text-muted"><i class="fas fa-user-friends mr-3 text-gray"></i><span>Pengunjung</span></a></li>
+            <li class="sidebar-list-item"><a href="members.php" class="sidebar-link text-muted"><i class="fas fa-user-friends mr-3 text-gray"></i><span>Anggota</span></a></li>
+            <li class="sidebar-list-item"><a href="pengunjung.php" class="sidebar-link text-muted active"><i class="fas fa-user-friends mr-3 text-gray"></i><span>Pengunjung</span></a></li>
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#peminjaman" aria-expanded="false" aria-controls="peminjaman" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Peminjaman</span></a>
                 <div id="peminjaman" class="collapse">
                 <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
@@ -47,41 +72,38 @@
                 <div class="col-lg-12 mb-12">
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="text-uppercase mb-0">Anggota</h6>
+                    <h6 class="text-uppercase mb-0">Daftar Pengunjung</h6>
                   </div>
                   <div class="card-body table-responsive">                           
-                    <table class="table table-striped table-hover card-text" id='dataTables-search'>
-                      <thead>
-                        <tr>
-                          <th>NO</th>
-                          <th>Nama</th>
-                          <th>Email</th>
-                          <th>No WA</th>
-                          <th>Alamat</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $sql=mysqli_query($koneksi, "SELECT * FROM members");
-                        $no = 1;
-                        while($d=mysqli_fetch_array($sql)){
-                          echo "<tr id='search'>
-                                  <td>".$no++."</td>
-                                  <td>$d[nama]</td>
-                                  <td>$d[email]</td>
-                                  <td>$d[no_wa]</td>
-                                  <td>$d[alamat]</td>
-                                  <td>
-                                  <a class='btn btn-success btn-sm' href='members_detail.php?id=$d[id_member]'>
-                                  <i class='fas fa-eye'></i> View</a>
-                                  </td>
-                                </tr>
-                              ";
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                    <form class='col-md-6' method="post" action="">
+                      <div class="form-group">
+                        <label class="form-control-label text-uppercase">Nama</label>
+                        <input type="text" placeholder="nama" class="form-control" name='nama' required>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label text-uppercase">Alamat</label>
+                        <input type="text" placeholder="alamat" class="form-control" name='alamat' required>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label text-uppercase">Status Pekerjaan</label>
+                        <input type="text" placeholder="status" class="form-control" name='status' required>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label text-uppercase">Jenis Kelamin</label>
+                        <select name="jenis_kelamin" class='form-control'>
+                            <option value="Laki-Laki">Laki - Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-control-label text-uppercase">Keperluan</label>
+                        <input type="text" placeholder="keperluan" class="form-control" name='keperluan' required>
+                      </div>
+                      <div class="form-group text-right"> 
+                        <a href='pengunjung.php' class='btn btn-secondary' data-dismiss='modal' aria-hidden='true'>Batal</a>       
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

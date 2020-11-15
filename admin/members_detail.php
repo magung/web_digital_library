@@ -47,41 +47,25 @@
                 <div class="col-lg-12 mb-12">
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="text-uppercase mb-0">Anggota</h6>
+                    <h6 class="text-uppercase mb-0">Members</h6>
                   </div>
-                  <div class="card-body table-responsive">                           
-                    <table class="table table-striped table-hover card-text" id='dataTables-search'>
-                      <thead>
-                        <tr>
-                          <th>NO</th>
-                          <th>Nama</th>
-                          <th>Email</th>
-                          <th>No WA</th>
-                          <th>Alamat</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <?php
-                        $sql=mysqli_query($koneksi, "SELECT * FROM members");
-                        $no = 1;
-                        while($d=mysqli_fetch_array($sql)){
-                          echo "<tr id='search'>
-                                  <td>".$no++."</td>
-                                  <td>$d[nama]</td>
-                                  <td>$d[email]</td>
-                                  <td>$d[no_wa]</td>
-                                  <td>$d[alamat]</td>
-                                  <td>
-                                  <a class='btn btn-success btn-sm' href='members_detail.php?id=$d[id_member]'>
-                                  <i class='fas fa-eye'></i> View</a>
-                                  </td>
-                                </tr>
-                              ";
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                  <div class="card-body">
+                    <?php
+                    $sql=mysqli_query($koneksi, "SELECT * FROM members WHERE id_member=".$_GET['id']);
+                    while($d=mysqli_fetch_array($sql)){ ?>
+                    <div class='row'>
+                        <div class='col-md-3'>
+                            <img src="<?= $d['image'] ?>" onerror="this.src='https\:\/\/s3.amazonaws.com/37assets/svn/765-default-avatar.png';this.onerror='';" width='100%'>
+                        </div>
+                        <div class='col-md-7'>
+                            <p>Nama : <?= $d['nama'] ?></p>
+                            <p>Email : <?= $d['email'] ?></p>
+                            <p>WA : <?= $d['no_wa'] ?></p>
+                            <p>Alamat : <?= $d['alamat'] ?></p>
+                        </div>
+                    </div>
+                    <?php }
+                    ?>
                   </div>
                 </div>
               </div>

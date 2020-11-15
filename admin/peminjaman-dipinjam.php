@@ -22,9 +22,9 @@
             <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#peminjaman" aria-expanded="true" aria-controls="peminjaman" class="sidebar-link text-muted active"><i class="o-table-content-1 mr-3 text-gray"></i><span>Peminjaman</span></a>
                 <div id="peminjaman" class="collapse">
                 <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                    <li class="sidebar-list-item"><a href="peminjaman-menunggu-konfirmasi.php" class="sidebar-link text-muted pl-lg-5 active">Menunggu Konfirmasi</a></li>
+                    <li class="sidebar-list-item"><a href="peminjaman-menunggu-konfirmasi.php" class="sidebar-link text-muted pl-lg-5">Menunggu Konfirmasi</a></li>
                     <li class="sidebar-list-item"><a href="peminjaman-dikirim.php" class="sidebar-link text-muted pl-lg-5">Dikirim</a></li>
-                    <li class="sidebar-list-item"><a href="peminjaman-dipinjam.php" class="sidebar-link text-muted pl-lg-5">Dipinjam</a></li>
+                    <li class="sidebar-list-item"><a href="peminjaman-dipinjam.php" class="sidebar-link text-muted pl-lg-5 active">Dipinjam</a></li>
                     <li class="sidebar-list-item"><a href="peminjaman-selesai.php" class="sidebar-link text-muted pl-lg-5">Selesai</a></li>
                     <li class="sidebar-list-item"><a href="peminjaman-batal.php" class="sidebar-link text-muted pl-lg-5">Batal</a></li>
                 </ul>
@@ -50,7 +50,9 @@
                 <div class="col-lg-12 mb-12">
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="text-uppercase mb-0">Menunggu Konfirmasi</h6>
+                    <h6 class="text-uppercase mb-0">PEMINJAMAN</h6><br>
+                    <a class='btn btn-success btn-sm' href='peminjaman-tambah.php'>
+                    <i class='fas fa-plus'></i> Tambah</a>
                   </div>
                   <div class="card-body table-responsive">                           
                     <table id='dataTables-search' class="table table-striped table-hover card-text">
@@ -63,15 +65,16 @@
                           <th>Total Buku</th>
                           <th>Alamat</th>
                           <th>Type</th>
+                          <th>Tanggal</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php
-                        $sql=mysqli_query($koneksi, "SELECT * FROM `peminjaman` INNER JOIN members ON members.id_member = peminjaman.id_member WHERE status='KONFIRMASI'");
+                        $sql=mysqli_query($koneksi, "SELECT * FROM `peminjaman` INNER JOIN members ON members.id_member = peminjaman.id_member WHERE status='DIPINJAM'");
                         $no = 1;
                         while($d=mysqli_fetch_array($sql)){
-                          echo "<tr id='search'>
+                          echo "<tr id='search'>  
                                   <td>".$no++."</td>
                                   <td><a href='members_detail.php?id=$d[id_member]'>$d[nama]</a></td>
                                   <td>Email : <a href='mailto:email@example.com'>$d[email]</a><br>WA : <a href='https://api.whatsapp.com/send?phone=$d[no_wa]' >$d[no_wa]</a></td>";
@@ -97,32 +100,13 @@
                           echo  $d['kirim'] == 0 ? 'LANGSUNG' : 'DELIVERY';
                                 
                           echo"</td>
+                                <td>Tanggal Pinjam :<br>$d[tanggal_pinjam]<br>Tanggal Harus Kembali :<br>$d[tanggal_harus_kembali]<br></td>
                                 <td>
-                                  <a href='#modalApprove' class='approve-data btn btn-success btn-sm' data-id='$d[id_peminjaman]' data-status='$d[kirim]'
-                                  role='button' data-toggle='modal' >Ijinkan</a> 
-                                  <a href='#modalReject' class='reject-data btn btn-danger btn-sm' data-id='$d[id_peminjaman]' 
-                                  role='button' data-toggle='modal' >Batal</a>
+                                  <a href='#modalApprove' class='approve-data btn btn-primary btn-sm' data-id='$d[id_peminjaman]' data-buku='$d[id_buku]' data-total='$d[total_buku]'
+                                  role='button' data-toggle='modal' >Terima Buku</a> 
                                 </td>";
                           echo "</tr>";
                           ?>
-                          <div class='modal small fade' id='modalReject' tabindex='-1' role='dialog' aria-labelledby='modalRejectLabel' aria-hidden='true'>
-                              <div class='modal-dialog'>
-                                  <div class='modal-content'>
-                                      <div class='modal-header'>
-                                          <h5 id='modalRejectLabel'>Konfirmasi</h5>
-                                      </div>
-                                      <div class='row modal-body p-3'>
-                                          <div class='col-md-12 mb-3'>
-                                              <h5> Apakah Anda yakin ?</h5>
-                                          </div>
-                                          <div class='col-md-12 float-center text-center'>
-                                              <a href='' class='btn btn-primary btn-sm' data-dismiss='modal' aria-hidden='true'>Tutup</a> 
-                                              <a href='#' class='btn btn-danger btn-sm'  id='modalRejectbtn' >Batal</a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
                           <div class='modal small fade' id='modalApprove' tabindex='-1' role='dialog' aria-labelledby='modalApproveLabel' aria-hidden='true'>
                               <div class='modal-dialog'>
                                   <div class='modal-content'>
@@ -135,7 +119,7 @@
                                           </div>
                                           <div class='col-md-12 float-center text-center'>
                                               <a href='' class='btn btn-primary btn-sm' data-dismiss='modal' aria-hidden='true'>Tutup</a> 
-                                              <a href='#' class='btn btn-success btn-sm'  id='modalApprovebtn' >Ijinkan</a>
+                                              <a href='#' class='btn btn-success btn-sm'  id='modalApprovebtn' >Terima</a>
                                           </div>
                                       </div>
                                   </div>
@@ -161,16 +145,9 @@
 <script>
 $('.approve-data').click(function(){
     var id=$(this).data('id');
-    var status = $(this).attr('data-status');
-    if(status == 0) {
-      status = 'DIPINJAM'
-    } else {
-      status = 'DIKIRIM'
-    }
-    $('#modalApprovebtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status='+status+'&redirect=peminjaman-menunggu-konfirmasi');
-});
-$('.reject-data').click(function(){
-    var id=$(this).data('id');
-    $('#modalRejectbtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status=BATAL&redirect=peminjaman-menunggu-konfirmasi');
+    var buku=$(this).data('buku');
+    var total=$(this).data('total');
+    var status = 'SELESAI'
+    $('#modalApprovebtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status='+status+'&redirect=peminjaman-dipinjam&buku='+buku+'&total='+total);
 });
 </script>

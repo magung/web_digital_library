@@ -108,44 +108,39 @@
                         
                       }
                   }
-        
+                  $sql=mysqli_query($koneksi, "SELECT * FROM buku WHERE id_buku =$_GET[id]");
+                  while($d=mysqli_fetch_array($sql)){
                 ?>
+                
                 <div class="card">
                   <div class="card-header">
-                    <h6 class="text-uppercase mb-0">Data Buku</h6><br>
-                    <a class='btn btn-success btn-sm' href='#modalTambah' data-toggle='modal'>
-                    <i class='fas fa-plus'></i> Tambah</a>
+                    <h6 class="text-uppercase mb-0"><?php echo "$d[judul]"; ?></h6><br>
                   </div>
-                  <div class="card-body table-responsive">                           
-                    <table id='dataTables-search' class="table table-striped table-hover card-text">
-                      <thead>
-                        <tr>
-                          <th>NO</th>
-                          <th>Image</th>
-                          <th>Judul</th>
-                          <th>Penulis</th>
-                          <th>Penerbit</th>
-                          <th>Tahun Terbit</th>
-                          <th>Stok</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                  <div class="card-body">                
                       <?php
-                        $sql=mysqli_query($koneksi, "SELECT * FROM buku");
-                        $no = 1;
-                        while($d=mysqli_fetch_array($sql)){
-                          echo "<tr id='search'>
-                                  <td>".$no++."</td>
-                                  <td><img src='img/$d[image]' width='100'/></td>
-                                  <td>$d[judul]</td>
-                                  <td>$d[penulis]</td>
-                                  <td>$d[penerbit]</td>
-                                  <td>$d[tahun_terbit]</td>
-                                  <td>$d[stok]</td>
-                                  <td>
-                                  <a class='btn btn-warning btn-sm' href='buku_detail.php?id=$d[id_buku]'>
-                                  <i class='fas fa-eye'></i> View</a>
+                          echo "
+                            <div class='row'>
+                                <div class='col-md-4'>
+                                    <img src='img/$d[image]' width='100%'>
+                                </div>
+                                <div class='col-md-8'>
+                                <h5>Judul Buku</h5>
+                                <p>$d[judul]</p>
+                                <h5>Penulis</h5>
+                                <p>$d[penulis]</p>
+                                <h5>Penerbit</h5>
+                                <p>$d[penerbit]</p>
+                                <h5>Tahun Terbit</h5>
+                                <p>$d[tahun_terbit]</p>
+                                <h5>ISBN</h5>
+                                <p>$d[isbn]</p>
+                                <h5>EISBN</h5>
+                                <p>$d[eisbn]</p>
+                                <h5>Stok</h5>
+                                <p>$d[stok]</p>
+                                <h5>Deskripsi</h5>
+                                <p>$d[deskripsi]</p>
+                                <td>
                                   <a class='btn btn-success btn-sm' href='#modalEdit$d[id_buku]' data-toggle='modal'>
                                   <i class='fas fa-edit'></i> Edit</a>
                                   <div class='modal small fade' id='modalEdit$d[id_buku]' tabindex='-1' role='dialog' aria-labelledby='modalEditLabel' aria-hidden='true'>
@@ -253,12 +248,11 @@
                                       </div>
                                   </div>
                                   </td>
-                                </tr>
+                                  </div>
+                            </div>
                               ";
                         }
                         ?>
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>

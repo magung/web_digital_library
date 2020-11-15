@@ -1,10 +1,20 @@
-<?php include "koneksi.php"; ?>
+<?php include "koneksi.php";  
+session_start();
+  if(!isset($_SESSION['username']) && !isset($_SESSION['id_user'])){
+    // header('location:login.php');
+    echo '<script> window.location.replace("login.php");</script>';
+  }else{
+    $username = $_SESSION['username'];
+    $id_user = $_SESSION['id_user'];
+  }
+  
+?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bubbly - Boootstrap 4 Admin template by Bootstrapious.com</title>
+    <title>Digital Library</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -20,8 +30,9 @@
     <link rel="stylesheet" href="../distribution/css/style.default.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="../distribution/css/custom.css">
+    <link rel="stylesheet" href="../distribution/css/datepicker.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../distribution/img/favicon.png?3">
+    <link rel="shortcut icon" href="./img/icon/knowledge.png">
     
     <link rel="stylesheet" type="text/css" href="../distribution/DataTables/datatables.min.css"/>
     

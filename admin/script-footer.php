@@ -7,6 +7,7 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="../distribution/js/charts-home.js"></script>
 <script src="../distribution/js/front.js"></script>
+<script src="../distribution/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript" src="../distribution/DataTables/datatables.min.js"></script>
 <script>
     $(document).ready(function () {

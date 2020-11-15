@@ -1,9 +1,9 @@
 <?php
-//variabel koneksi
-// $koneksi = mysqli_connect("sql304.epizy.com","epiz_26666079","EPujHojaFti","epiz_26666079_digital_library");
-$koneksi = mysqli_connect("localhost","root","","digital_library");
+	//variabel koneksi
+	//$koneksi = mysqli_connect("localhost","id14788998_admin","dZ@&4P&2SW4I3cLl","id14788998_digital_library");
+	$koneksi = mysqli_connect("localhost","root","","digital_library");
 
-if(!$koneksi){
-	echo "Koneksi Database Gagal...!!!";
-}
+	if(!$koneksi){
+		echo "Koneksi Database Gagal...!!!";
+	}
 ?>
