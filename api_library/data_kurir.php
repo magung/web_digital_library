@@ -15,17 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if(isset($_REQUEST['search'])){
             $search = $_REQUEST['search'];
         }
-        $sql = 'SELECT * FROM `buku` WHERE (judul LIKE "%'.$search.'%" OR penulis like "%'.$search.'%" OR isbn like "%'.$search.'%" OR tahun_terbit like "%'.$search.'%")';
-        if(isset($_REQUEST['kategori'])){
-            if($_REQUEST['kategori'] !== '') {
-                $sql .= ' AND id_kategori = ' . $_REQUEST['kategori']; 
-            }
-        }
-        if(isset($_REQUEST['limit'])){
-            if($_REQUEST['limit'] !== '') {
-                $sql .= ' LIMIT ' . $_REQUEST['limit']; 
-            }
-        }
+        $sql = 'SELECT * FROM `kurir` WHERE kurir LIKE "%'.$search.'%"';
         $res = $db->get($sql);
         $result = [];
         if($res) {

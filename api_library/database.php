@@ -2,15 +2,15 @@
 class Database{
     public $mysqli;
     
-    // var $host = 'localhost';
-    // var $db   = 'digital_library';
-    // var $user = 'root';
-    // var $pass = '';
-
     var $host = 'localhost';
-    var $db   = 'id14788998_digital_library';
-    var $user = 'id14788998_admin';
-    var $pass = 'dZ@&4P&2SW4I3cLl';
+    var $db   = 'digital_library';
+    var $user = 'root';
+    var $pass = '';
+
+    // var $host = 'localhost';
+    // var $db   = 'id14788998_digital_library';
+    // var $user = 'id14788998_admin';
+    // var $pass = 'dZ@&4P&2SW4I3cLl';
 
 	public function open() {
 		$this->mysqli = new mysqli($this->host, $this->user, $this->pass, $this->db);

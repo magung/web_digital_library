@@ -5,7 +5,7 @@
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Digital Library</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.php" class="navbar-brand font-weight-bold text-uppercase text-base">Digital Library</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           
         </ul>
@@ -79,7 +79,7 @@
                           }
 
                           $simpan = mysqli_query($koneksi,
-                          "UPDATE `buku` SET `judul` = '$judul', `penulis` = '$penulis', `penerbit` = '$penerbit', `isbn` = '$isbn', `eisbn` = '$eisbn', `tahun_terbit` = '$tahun', `stok` = '$stok', `deskripsi` = '$deskripsi', `image` = '$gambar', `update_by` = '$id_user' WHERE `buku`.`id_buku` = $id;");
+                          "UPDATE `buku` SET `judul` = '$judul', `penulis` = '$penulis', `penerbit` = '$penerbit', `isbn` = '$isbn', `eisbn` = '$eisbn', `tahun_terbit` = '$tahun', `stok` = '$stok', `deskripsi` = '$deskripsi', `image` = '$gambar', `update_by` = '$id_user', `id_kategori` = '$kategori' WHERE `buku`.`id_buku` = $id;");
                           
                           if($simpan){
                             //header("Location: ".$_SERVER['PHP_SELF']);

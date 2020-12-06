@@ -17,7 +17,12 @@
                     $tambahbuku = mysqli_query($koneksi, "UPDATE `buku` SET `stok` = (buku.stok + $qty) WHERE `buku`.`id_buku` = $idtotalbuku[$i]");
                 }
             }
-            $approve = mysqli_query($koneksi, "UPDATE `peminjaman` SET `status` = '$_GET[status]'".$kembali." WHERE `peminjaman`.`id_peminjaman`='$_GET[id]'");
+            $query = "UPDATE `peminjaman` SET `status` = '$_GET[status]'".$kembali;
+            if(isset($_GET['tanggal'])){
+                $query .= ", `tanggal_harus_kembali` = '$_GET[tanggal]'";
+            }
+            $query .= " WHERE `peminjaman`.`id_peminjaman`='$_GET[id]'";
+            $approve = mysqli_query($koneksi, $query);
             if($approve) {
                 // header('location:'.$_GET['redirect'].'.php');
                 echo '<script> window.location.replace("'.$_GET['redirect'].'.php");</script>';

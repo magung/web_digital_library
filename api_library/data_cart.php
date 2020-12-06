@@ -11,29 +11,29 @@ $db = new Database();
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $db->open();
-        $search = '';
-        if(isset($_REQUEST['search'])){
-            $search = $_REQUEST['search'];
+        $id = '';
+        if(isset($_REQUEST['id'])){
+            $id = $_REQUEST['id'];
         }
-        $sql = 'SELECT * FROM `buku` WHERE (judul LIKE "%'.$search.'%" OR penulis like "%'.$search.'%" OR isbn like "%'.$search.'%" OR tahun_terbit like "%'.$search.'%")';
-        if(isset($_REQUEST['kategori'])){
-            if($_REQUEST['kategori'] !== '') {
-                $sql .= ' AND id_kategori = ' . $_REQUEST['kategori']; 
-            }
-        }
-        if(isset($_REQUEST['limit'])){
-            if($_REQUEST['limit'] !== '') {
-                $sql .= ' LIMIT ' . $_REQUEST['limit']; 
-            }
-        }
+        $sql = 'SELECT * FROM `cart` WHERE member="'.$id.'"';
         $res = $db->get($sql);
         $result = [];
         if($res) {
+            $buku = [];
+            if($res[0]["buku"] !== ''){
+                $idbuku = explode(",", $res[0]["buku"]);
+                $id=",".$res[0]["buku"];
+                for($i=0;$i< count($idbuku);$i++){
+                    $getBuku=$db->get("SELECT * FROM buku WHERE id_buku =".$idbuku[$i]);
+                    array_push($buku, $getBuku[0]);
+                }
+            }
+            
             $result = [
                 'err_code'      => '00',
                 'error'         => false,
                 'msg'           => 'success',
-                'result'        => $res,
+                'result'        => $buku,
                 'total_data'    => $db->mysqli->affected_rows
             ];
 

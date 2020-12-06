@@ -79,7 +79,7 @@
                           }
 
                           $simpan = mysqli_query($koneksi,
-                          "UPDATE `buku` SET `judul` = '$judul', `penulis` = '$penulis', `penerbit` = '$penerbit', `isbn` = '$isbn', `eisbn` = '$eisbn', `tahun_terbit` = '$tahun', `stok` = '$stok', `deskripsi` = '$deskripsi', `image` = '$gambar', `update_by` = '$id_user' WHERE `buku`.`id_buku` = $id;");
+                          "UPDATE `buku` SET `judul` = '$judul', `penulis` = '$penulis', `penerbit` = '$penerbit', `isbn` = '$isbn', `eisbn` = '$eisbn', `tahun_terbit` = '$tahun', `stok` = '$stok', `deskripsi` = '$deskripsi', `image` = '$gambar', `update_by` = '$id_user', `id_kategori` = '$kategori' WHERE `buku`.`id_buku` = $id;");
                           
                           if($simpan){
                             //header("Location: ".$_SERVER['PHP_SELF']);

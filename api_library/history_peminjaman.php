@@ -11,24 +11,36 @@ $db = new Database();
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $db->open();
+        $id = '';
+        if(isset($_REQUEST['id'])){
+            $id = $_REQUEST['id'];
+        }
         $search = '';
         if(isset($_REQUEST['search'])){
             $search = $_REQUEST['search'];
         }
-        $sql = 'SELECT * FROM `buku` WHERE (judul LIKE "%'.$search.'%" OR penulis like "%'.$search.'%" OR isbn like "%'.$search.'%" OR tahun_terbit like "%'.$search.'%")';
-        if(isset($_REQUEST['kategori'])){
-            if($_REQUEST['kategori'] !== '') {
-                $sql .= ' AND id_kategori = ' . $_REQUEST['kategori']; 
-            }
-        }
-        if(isset($_REQUEST['limit'])){
-            if($_REQUEST['limit'] !== '') {
-                $sql .= ' LIMIT ' . $_REQUEST['limit']; 
-            }
-        }
+        $sql = "SELECT * FROM `peminjaman` WHERE id_member='$id' ORDER BY `peminjaman`.`id_peminjaman` DESC";
+        
         $res = $db->get($sql);
         $result = [];
         if($res) {
+            for ($i = 0; $i < count($res); $i++) {
+                $buku = [];
+                if($res[$i]["id_buku"] !== ''){
+                    $idbuku = explode(",", $res[$i]["id_buku"]);
+                    $totalbuku = explode(",", $res[$i]["total_buku"]);
+                    $id=",".$res[$i]["id_buku"];
+                    for($key=0;$key< count($idbuku);$key++){
+                        $getBuku=$db->get("SELECT * FROM buku WHERE id_buku =".$idbuku[$key]);
+                        $getBuku[0]['qty'] = $totalbuku[$key];
+                        array_push($buku, $getBuku[0]);
+                    }
+                }
+                // var_dump($buku);
+                $res[$i]['buku'] = $buku;
+            }
+
+
             $result = [
                 'err_code'      => '00',
                 'error'         => false,

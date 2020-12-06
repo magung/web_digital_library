@@ -29,6 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
                         'alamat'    => $res[0]['alamat'],
                         'status_pekerjaan'   => $res[0]['status_pekerjaan'],
                         'jenis_kelamin'      => $res[0]['jenis_kelamin'],
+                        'no_wa'      => $res[0]['no_wa'],
+                        'image'      => $res[0]['image'],
                     ],
                     'token'     => $newtoken,
                 ];
@@ -41,7 +43,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }else{
             $result['err_code'] = '01';
             $result['error']    = true;
-            $result['msg']      = 'failed';
+            $result['msg']      = 'email atau password salah';
         }
 
         $db->close();

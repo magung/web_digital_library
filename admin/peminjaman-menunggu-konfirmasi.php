@@ -5,7 +5,7 @@
   <body>
     <!-- navbar-->
     <header class="header">
-      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Digital Library</a>
+      <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.php" class="navbar-brand font-weight-bold text-uppercase text-base">Digital Library</a>
         <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
           
         </ul>
@@ -100,7 +100,7 @@
                                 <td>
                                   <a href='#modalApprove' class='approve-data btn btn-success btn-sm' data-id='$d[id_peminjaman]' data-status='$d[kirim]'
                                   role='button' data-toggle='modal' >Ijinkan</a> 
-                                  <a href='#modalReject' class='reject-data btn btn-danger btn-sm' data-id='$d[id_peminjaman]' 
+                                  <a href='#modalReject' class='reject-data btn btn-danger btn-sm' data-id='$d[id_peminjaman]' data-buku='$d[id_buku]' data-total='$d[total_buku]' 
                                   role='button' data-toggle='modal' >Batal</a>
                                 </td>";
                           echo "</tr>";
@@ -130,13 +130,18 @@
                                           <h5 id='modalApproveLabel'>Konfirmasi</h5>
                                       </div>
                                       <div class='row modal-body p-3'>
+                                        <form>
                                           <div class='col-md-12 mb-3'>
-                                              <h5> Apakah Anda yakin ?</h5>
+                                              <h5>Masukkan Tanggal Pengembalian</h5>
+                                              <div class='form-group col-md-12'>
+                                                <input type="text" id="tanggalKembali" name="tanggal"  class="form-control datepicker"  required/>
+                                              </div>
                                           </div>
                                           <div class='col-md-12 float-center text-center'>
                                               <a href='' class='btn btn-primary btn-sm' data-dismiss='modal' aria-hidden='true'>Tutup</a> 
-                                              <a href='#' class='btn btn-success btn-sm'  id='modalApprovebtn' >Ijinkan</a>
+                                              <a href='#' type='submit' class='btn btn-success btn-sm'  id='modalApprovebtn' >Ijinkan</a>
                                           </div>
+                                        </form>
                                       </div>
                                   </div>
                               </div>
@@ -159,18 +164,37 @@
   </body>
 </html>
 <script>
+var id = '';
+var status = '';
 $('.approve-data').click(function(){
-    var id=$(this).data('id');
-    var status = $(this).attr('data-status');
+    id=$(this).data('id');
+    status = $(this).attr('data-status');
     if(status == 0) {
       status = 'DIPINJAM'
     } else {
       status = 'DIKIRIM'
     }
-    $('#modalApprovebtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status='+status+'&redirect=peminjaman-menunggu-konfirmasi');
+    
+    // $('#modalApprovebtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status='+status+'&redirect=peminjaman-menunggu-konfirmasi');
 });
+
+var tanggal = '';
+$('#tanggalKembali').change(function(){
+  tanggal = $('#tanggalKembali').val();
+  $('#modalApprovebtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status='+status+'&redirect=peminjaman-menunggu-konfirmasi&tanggal='+tanggal);
+});
+
 $('.reject-data').click(function(){
     var id=$(this).data('id');
-    $('#modalRejectbtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status=BATAL&redirect=peminjaman-menunggu-konfirmasi');
+    var buku=$(this).data('buku');
+    var total=$(this).data('total');
+    $('#modalRejectbtn').attr('href','peminjaman_action.php?action=approve&id='+id+'&status=BATAL&redirect=peminjaman-menunggu-konfirmasi&buku='+buku+'&total='+total);
+});
+$(function(){
+  $(".datepicker").datepicker({
+    format: 'yyyy-mm-dd',
+    autoclose: true,
+    todayHighlight: true,
+  });
 });
 </script>
