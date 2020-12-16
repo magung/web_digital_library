@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `digital_library`
@@ -42,7 +42,7 @@ CREATE TABLE `buku` (
   `id_kategori` int(11) NOT NULL,
   `update_by` varchar(11) DEFAULT NULL,
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `buku`
@@ -64,7 +64,7 @@ CREATE TABLE `cart` (
   `buku` varchar(255) NOT NULL,
   `member` int(11) DEFAULT NULL,
   `update_by` varchar(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE `kategori` (
   `id_kategori` int(11) NOT NULL,
   `kategori` varchar(255) NOT NULL,
   `update_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kategori`
@@ -99,7 +99,7 @@ CREATE TABLE `kurir` (
   `kurir` varchar(255) NOT NULL,
   `biaya` int(255) DEFAULT NULL,
   `update_by` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kurir`
@@ -125,7 +125,7 @@ CREATE TABLE `members` (
   `status_pekerjaan` varchar(50) DEFAULT NULL,
   `jenis_kelamin` varchar(50) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `members`
@@ -160,7 +160,7 @@ CREATE TABLE `peminjaman` (
   `tanggal_kembali` date DEFAULT NULL,
   `tanggal_update` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `update_by` varchar(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `peminjaman`
@@ -207,7 +207,7 @@ CREATE TABLE `pengunjung` (
   `jenis_kelamin` varchar(50) NOT NULL,
   `keperluan` varchar(255) NOT NULL,
   `tanggal_kunjungan` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pengunjung`
@@ -267,7 +267,7 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `jumlah_login` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`

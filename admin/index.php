@@ -28,6 +28,44 @@ $selesai=mysqli_query($koneksi, "SELECT COUNT(id_peminjaman) AS total FROM `pemi
 $selesai=mysqli_fetch_array($selesai);
 $selesai=$selesai['total'];
 
+$tahun='2020';
+function getDataPerbulan($bulan, $tahun) {
+  $queryData="SELECT COUNT(id_peminjaman) as data FROM peminjaman WHERE month(tanggal_pinjam)='$bulan' AND year(tanggal_pinjam)='$tahun' GROUP BY month(tanggal_pinjam)";
+  $getData=mysqli_query($GLOBALS['koneksi'], $queryData);
+  $data=mysqli_fetch_array($getData);
+  return $data['data'];
+}
+
+$datapeminjam1=getDataPerbulan(1, $tahun);
+$datapeminjam2=getDataPerbulan(2, $tahun);
+$datapeminjam3=getDataPerbulan(3, $tahun);
+$datapeminjam4=getDataPerbulan(4, $tahun);
+$datapeminjam5=getDataPerbulan(5, $tahun);
+$datapeminjam6=getDataPerbulan(6, $tahun);
+$datapeminjam7=getDataPerbulan(7, $tahun);
+$datapeminjam8=getDataPerbulan(8, $tahun);
+$datapeminjam9=getDataPerbulan(9, $tahun);
+$datapeminjam10=getDataPerbulan(10, $tahun);
+$datapeminjam11=getDataPerbulan(11, $tahun);
+$datapeminjam12=getDataPerbulan(12, $tahun);
+
+// var_dump($datapeminjam11);
+
+// $qdatapeminjam = "SELECT MONTH(tanggal_pinjam) AS bulan, COUNT(*) AS jumlah_bulanan
+// FROM peminjaman GROUP BY MONTH(tanggal_pinjam)";
+// $datapeminjam=mysqli_query($koneksi, $qdatapeminjam);
+
+// // var_dump($datapeminjam);
+// $bulan = [];
+// $data = [];
+// while($d=mysqli_fetch_array($datapeminjam)){
+//   // array_push($d['bulan'], $bulan);
+//   // array_push($data, $d['jumlah_bulanan']);
+//   // $bulan=$datapeminjam['bulan'];
+//   // $data=$datapeminjam['jumlah_bulanan'];
+// }
+// var_dump($bulan)
+
 ?>
 <script>
   var konfirmasi = "<?php echo $konfirmasi; ?>";
@@ -36,6 +74,20 @@ $selesai=$selesai['total'];
   var dikirim = "<?php echo $dikirim; ?>";
   var batal = "<?php echo $batal; ?>";
   var selesai = "<?php echo $selesai; ?>";
+
+  var bulan1 = $datapeminjam1;
+  var bulan2 = $datapeminjam2;
+  var bulan3 = $datapeminjam3;
+  var bulan4 = $datapeminjam4;
+  var bulan5 = $datapeminjam5;
+  var bulan6 = $datapeminjam6;
+  var bulan7 = $datapeminjam7;
+  var bulan8 = $datapeminjam8;
+  var bulan9 = $datapeminjam9;
+  var bulan10 = $datapeminjam10;
+  var bulan11 = $datapeminjam11;
+  var bulan12 = $datapeminjam12;
+
 </script>
   <body>
     <!-- navbar-->
@@ -138,6 +190,20 @@ $selesai=$selesai['total'];
                   <div class="card-body">
                     <div class="chart-holder">
                       <canvas id="pieChartPeminjaman"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-lg-12 mb-4 mb-lg-0">
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="h6 text-uppercase mb-0">PEMINJAM PERBULANNYA</h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-holder mt-5 mb-5">
+                      <canvas id="lineChartExample"></canvas>
                     </div>
                   </div>
                 </div>
